@@ -13,14 +13,16 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onMenuClick, isMenuOpen }) => {
 	return (
 		<header className='Header'>
-			{isMenuOpen ? <IoClose onClick={onMenuClick} /> : <LuMenu onClick={onMenuClick}/>}
-			
+			{isMenuOpen
+				? <IoClose onClick={onMenuClick} aria-label='close-menu' />
+				: <LuMenu onClick={onMenuClick} aria-label='open-menu' />}
+
 			<h1>Minima List</h1>
 			<div className='actions'>
 				<div className="github">
 					<strong className='icon-title'>GitHub</strong>
 					<a href={GITHUB_PROFILE_URL} target='_blank'
-					aria-label='Enlace a perfil de GitHub'>
+						aria-label='Enlace a perfil de GitHub'>
 						<LuGithub />
 					</a>
 				</div>
