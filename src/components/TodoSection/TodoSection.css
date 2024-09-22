@@ -1,0 +1,64 @@
+.TodoSection {
+    display: grid;
+    overflow: hidden;
+    position: relative;
+}
+
+.TodoSection::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--content-background);
+    z-index: -1;
+    filter: opacity(.5);
+}
+
+.TodoSection .content {
+    position: relative;
+    overflow: hidden;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, .2);
+    z-index: 1;
+}
+
+.TodoSection .content::after {
+    content: '';
+    position: absolute;
+
+    /** Parche para Chrome:
+        - Chrome hace ver como un border donde  no lo hay aumentar el tamaño y ajustar un margen negativo lo parchea 
+    */
+    inset: -2%;
+    width: 104%;
+    height: 104%;
+    /* Fin del parche sobre Chrome */
+
+    background-image: var(--bg-image);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    filter: blur(5px) opacity(.3);
+    z-index: -1;
+}
+
+.TodoSection .content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--background-color);
+    z-index: -2;
+}
+
+@media only screen and (max-width: 900px) {
+    .TodoSection .content {
+        margin: 1rem;
+    }
+}

@@ -1,0 +1,107 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* color-scheme: light dark; */
+  
+  --background-color: rgba(255, 255, 255, 1);
+  --text-color: #242424;
+  --button-background: rgba(240, 240, 240, 0.87);
+  --button-text: #242424;
+
+  --content-background: rgba(120, 120, 120, 0.8);
+  --accent-color: rgb(0, 191, 255);
+
+  --bg-image: url('https://image.tensorartassets.com/cdn-cgi/image/anim=false,plain=false,w=2048,f=jpeg,q=85/posts/images/624503603914093467/67c5b3ca-8232-44b4-b19b-329d28f59e49.png');
+
+  /* color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme='dark'] {
+  --background-color: rgb(36, 36, 36);
+  --text-color: rgba(255, 255, 255, 0.87);
+  --button-background: rgb(26, 26, 26);
+  --button-text: rgba(255, 255, 255, 0.87);
+
+  --content-background: rgba(0, 0, 0, .8);
+  --accent-color: orange;
+
+  --bg-image: url('https://image.tensorartassets.com/cdn-cgi/image/anim=false,plain=false,w=2048,f=jpeg,q=85/model_showcase/759913614833601675/255554e6-7565-dc2e-91fd-10342cd1d177.png');
+}
+
+*, *::before, *::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+html {
+  /* -webkit-transition: background-color .75s, color .75s;
+  transition: background-color .75s, color .75s; */
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+input, textarea, button, select {
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid var(--accent-color);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--button-background);
+  color: var(--button-text);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+/* button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+} */
+/* button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+} */

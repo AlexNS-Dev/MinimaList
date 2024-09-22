@@ -1,0 +1,79 @@
+.ThemeToggle {
+    width: 52px;
+    height: 26px;
+}
+
+.ThemeToggle * {
+    -webkit-transition: .5s;
+    transition: .5s;
+}
+
+.ThemeToggle input {
+    display: none;
+}
+
+.ThemeToggle label {
+    width: 100%;
+    height: 100%;
+    border-radius: 100rem;
+    background: var(--button-background);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .3) inset;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.ThemeToggle .circle {
+    height: 80%;
+    aspect-ratio: 1;
+    border-radius: 10rem;
+    background: var(--background-color);
+    box-shadow:
+        1px 1px 5px rgba(0, 0, 0, .3),
+        -1px -1px 5px rgba(0, 0, 0, .3) inset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 6%;
+    overflow: hidden;
+}
+
+.ThemeToggle svg {
+    width: 75%;
+    position: absolute;
+}
+
+.ThemeToggle .sun {
+    /* color: #ffc400; */
+}
+
+.ThemeToggle .moon {
+    color: var(--button-text);
+    margin-left: -250%;
+    transform: rotateY(-120deg);
+}
+
+.ThemeToggle:has(input[type=checkbox]:checked) label {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .5) inset;
+}
+
+.ThemeToggle:has(input[type=checkbox]:checked) .circle {
+    left: 100%;
+    transform: translate(-112%, 0%);
+    box-shadow:
+        1px 1px 5px rgba(0, 0, 0, .5),
+        -1px -1px 5px rgba(0, 0, 0, .5) inset;
+}
+
+.ThemeToggle:has(input[type=checkbox]:checked) .circle .sun {
+    margin-left: 250%;
+    transform: rotateY(120deg);
+}
+
+.ThemeToggle:has(input[type=checkbox]:checked) .circle .moon {
+    margin-left: 0%;
+    transform: rotateY(0deg);
+}
