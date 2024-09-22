@@ -1,18 +1,18 @@
 import './Sidebar.css'
 import React, { FormEvent, useState } from 'react';
 import useTodoStore, { TodoList } from '../../store/todoStore';
-import { IoMdTrash } from 'react-icons/io'
+import { capitalize } from '../../utils/helpers';
 
 interface SidebarProps {
     open: boolean
     onListClick: (list: TodoList) => void
     setIsMenuOpen: (isOpen: boolean) => void
+    selectedList: TodoList | null
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen, selectedList }) => {
     const items = useTodoStore((state) => state.todoLists)
     const addList = useTodoStore((state) => state.addList)
-    const removeList = useTodoStore((state) => state.removeList)
     const [listInput, setListInput] = useState('')
 
     /**
@@ -46,24 +46,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen }) =
         
     }
 
-    /**
-     * Handles the request to remove a list by its ID.
-     * Calls the `removeList` function to delete the list. If an error occurs during the removal process, an error is thrown.
-     * 
-     * @param {number} listId - The ID of the list to be removed.
-     * @returns {void}
-     */
-    const handleRemoveList = (listId: number) => () => {
-        // !!!
-        // Agregar una modal para preguntar si estas seguro de borrar la lista
-        try {
-            removeList(listId)
-            // Devolver en TodoSection el primer item de la lista
-        } catch (e) {
-            throw new Error((e as Error).message)
-        }
-    }
-
     return (
         <aside className={`Sidebar ${open ? 'open' : ''}`}>
             <div className='list'>
@@ -73,24 +55,13 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen }) =
                         item &&
                         <li
                             key={item.id}
+                            className={selectedList?.id === item.id ? 'active' : ''}
                             style={{ display: 'flex', alignItems: 'center' }}
                             onClick={() => onListClick(item)}
                         >
                             <span>
-                                {item.title}
+                                {capitalize(item.title)}
                             </span>
-                            <button
-                                style={{
-                                    padding: '0',
-                                    marginLeft: 'auto',
-                                    marginTop: '.2rem',
-                                    backgroundColor: 'transparent',
-                                    fontSize: 20,
-                                }}
-                                onClick={handleRemoveList(item.id)}
-                            >
-                                <IoMdTrash />
-                            </button>
                         </li>
                     )}
                     {/* Aqui terminaria el componente List */}

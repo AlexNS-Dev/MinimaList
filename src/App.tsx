@@ -37,7 +37,7 @@ function App() {
 	 */
 	useEffect(() => {
 		const lists = todoLists;
-	
+
 		if (selectedList && lists.some(list => list.id === selectedList.id)) {
 			// Si la lista seleccionada actual aún existe, la mantenemos.
 			setSelectedList(selectedList);
@@ -54,7 +54,12 @@ function App() {
 		<div className="App">
 			<Header onMenuClick={toggleMenu} isMenuOpen={isMenuOpen} />
 			<main>
-				<Sidebar open={isMenuOpen} onListClick={handleListClick} setIsMenuOpen={setIsMenuOpen} />
+				<Sidebar
+					open={isMenuOpen}
+					onListClick={handleListClick}
+					setIsMenuOpen={setIsMenuOpen}
+					selectedList={selectedList}
+				/>
 				<TodoSection selectedList={selectedList} />
 			</main>
 		</div>

@@ -23,20 +23,16 @@
 
 .Sidebar .list>ul>li {
     border-radius: 1rem;
-    padding: .5rem 1rem;
+    padding: 1rem;
     transition: background-color .2s;
     user-select: none;
     word-break: break-all;
 }
 
-.Sidebar .list>ul>li:hover {
+.Sidebar .list>ul>li:hover,
+.Sidebar .list>ul>li.active {
     background-color: color-mix(in srgb, transparent 80%, var(--text-color) 10%);
     cursor: pointer;
-}
-
-/* temp hover */
-.Sidebar .list>ul>li>button:hover {
-    color: rgb(255, 58, 58);
 }
 
 /* LIST INPUT */
@@ -94,12 +90,6 @@
         .list {
             ul {
                 padding: 1rem 2rem;
-
-                li {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
             }
         }
     }
