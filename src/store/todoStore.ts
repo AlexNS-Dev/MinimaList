@@ -17,7 +17,7 @@ interface TodoStoreState {
     todoLists: TodoList[],
 
     //  - Add List
-    addList: (listTitle: string) => TodoList,
+    addList: (listTitle: string) => TodoList | null,
     //  - Remove List
     removeList: (listId: number) => void,
     //  - Update List
@@ -55,19 +55,28 @@ const mockItems: TodoList[] = [
     },
 ]
 
-const useTodoStore = create<TodoStoreState>((set) => ({
+const useTodoStore = create<TodoStoreState>((set, get) => ({
     //  TodoList list
     todoLists: mockItems || [],
 
     //  - Add List
-    addList: (listTitle): TodoList => {
-        const newList: TodoList = {
+    addList: (listTitle): TodoList | null => {
+        const listExists = get().todoLists.some(list => list.title.toLocaleLowerCase() === listTitle.toLocaleLowerCase())
+
+        if (listExists) { // Check for duplicates
+            const formattedTitle = listTitle.charAt(0).toLocaleUpperCase() + listTitle.slice(1).toLocaleLowerCase()
+            console.warn(`List with title: '${formattedTitle}' already exists!`)
+            alert(`List with title: '${formattedTitle}' already exists!`) // Convert to fancier alert in the future
+            return null
+        }
+
+        const newList: TodoList = { // Create list
             id: Date.now(),
             title: listTitle,
             items: [],
         }
 
-        set((state) => {
+        set((state) => { // Update state with new list
             const updatedList = [newList, ...state.todoLists]
             return { todoLists: updatedList }
         })
@@ -87,14 +96,24 @@ const useTodoStore = create<TodoStoreState>((set) => ({
 
     //  - Add Task
     addTask: (listId, taskTitle) => {
-        const newTask: TodoTask = {
-            id: Date.now(),
-            title: taskTitle,
-            isCompleted: false
-        }
         set((state) => {
             const updatedList = state.todoLists.map(list => {
                 if (list.id === listId) {
+                    const taskExists = list.items.some(task => task.title.toLocaleLowerCase() === taskTitle.toLocaleLowerCase())
+
+                    if (taskExists) { // Check for duplicates
+                        const formattedTitle = taskTitle.charAt(0).toLocaleUpperCase() + taskTitle.slice(1).toLocaleLowerCase()
+                        console.warn(`Task with title: '${formattedTitle}' already exists!`)
+                        alert(`Task with title: '${formattedTitle}' already exists!`) // Convert to fancier alert in the future
+                        return list
+                    }
+
+                    const newTask: TodoTask = {
+                        id: Date.now(),
+                        title: taskTitle,
+                        isCompleted: false
+                    }
+
                     return {
                         ...list,
                         items: [newTask, ...list.items]
@@ -102,6 +121,7 @@ const useTodoStore = create<TodoStoreState>((set) => ({
                 }
                 return list // Return al map
             })
+
             return { todoLists: updatedList } // Return al set()
         })
     },

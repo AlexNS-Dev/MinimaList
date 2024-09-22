@@ -84,30 +84,27 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
                     <button onClick={handleRemoveList(currentList.id)}>Delete List</button>
                 </header>
 
-                <div className="tasks">
-                    <form className='task-input' onSubmit={handleTaskSubmit}>
-                        <input
-                            type="text"
-                            placeholder='New Task'
-                            value={taskInput}
-                            onChange={(e) => setTaskInput(e.target.value)} />
-                        <button type='submit'>Add Task</button>
-                    </form>
+                <form className='task-input' onSubmit={handleTaskSubmit}>
+                    <input
+                        type="text"
+                        placeholder='New Task'
+                        value={taskInput}
+                        onChange={(e) => setTaskInput(e.target.value)} />
+                    <button type='submit'>Add Task</button>
+                </form>
 
-                    {currentList.items.length > 0 &&
-                        <ul>
-                            {currentList.items.map((task) =>
-                                <li key={task.id}>
-                                    {task.title}
-                                    <input type="checkbox" checked={task.isCompleted} onChange={() => { /* Handle task completion status change */ }} />
-                                    <button onClick={handleRemoveTask(task.id)}>
-                                        <IoClose />
-                                    </button>
-                                </li>
-                            )}
-                        </ul>
-                    }
-                </div>
+                {currentList.items.length > 0 &&
+                    <ul className="tasks">
+                        {currentList.items.map((task) =>
+                            <li key={task.id}>
+                                {task.title}
+                                <button onClick={handleRemoveTask(task.id)}>
+                                    <IoClose />
+                                </button>
+                            </li>
+                        )}
+                    </ul>
+                }
             </div>
         </section>
     )
