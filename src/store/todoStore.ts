@@ -44,7 +44,7 @@ const mockItems: TodoList[] = [
             {
                 id: Date.now() + 2,
                 title: 'Sugar',
-                isCompleted: false
+                isCompleted: true
             },
         ],
     },

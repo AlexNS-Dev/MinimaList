@@ -21,7 +21,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen, sel
      * If the list input is empty or undefined, the function exits early. After adding the list, the input field is cleared.
      * 
      * @param {FormEvent<HTMLFormElement>} event - The form submission event.
-     * @returns {void}
      */
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();

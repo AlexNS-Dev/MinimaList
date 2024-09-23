@@ -31,7 +31,7 @@
 
 .Sidebar .list>ul>li:hover,
 .Sidebar .list>ul>li.active {
-    background-color: color-mix(in srgb, transparent 80%, var(--text-color) 10%);
+    background-color: color-mix(in srgb, transparent 90%, var(--text-color) 10%);
     cursor: pointer;
 }
 
@@ -54,10 +54,6 @@
         color: var(--text-color);
     }
     button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: .5rem;
         height: 2.4rem;
         width: 100%;
         padding: 0;
@@ -65,10 +61,6 @@
         font-weight: 600;
         color: var(--button-background);
         background-color: var(--accent-color);
-
-        svg {
-            color: var(--button-background);
-        }
     }
 }
 

@@ -2,7 +2,7 @@ import useTodoStore, { TodoList } from '../../store/todoStore';
 import { capitalize } from '../../utils/helpers';
 import './TodoSection.css'
 import React, { FormEvent, useMemo, useState } from 'react'
-import { IoClose } from 'react-icons/io5'
+import ItemList from '../ItemList/ItemList';
 
 interface TodoSectionProps {
     selectedList: TodoList | null,
@@ -24,9 +24,8 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
      * Calls the `removeList` function to delete the list. If an error occurs during the removal process, an error is thrown.
      * 
      * @param {number} listId - The ID of the list to be removed.
-     * @returns {void}
      */
-    const handleRemoveList = (listId: number) => () => {
+    const handleRemoveList = (listId: number) => {
         // !!!
         // Agregar una modal para preguntar si estas seguro de borrar la lista
         try {
@@ -49,7 +48,7 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
             throw new Error((e as Error).message)
         }
     }
-    const handleRemoveTask = (taskId: number) => () => {
+    const handleRemoveTask = (taskId: number) => {
         try {
             if (selectedList) {
                 removeTask(selectedList.id, taskId)
@@ -78,12 +77,13 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
     return (
         <section className='TodoSection'>
             <div className="content">
-
+                {/* Selected list section */}
                 <header>
                     <h2>{capitalize(currentList.title)}</h2>
-                    <button onClick={handleRemoveList(currentList.id)}>Delete List</button>
+                    <button onClick={() => handleRemoveList(currentList.id)}>Delete List</button>
                 </header>
 
+                {/* Input section */}
                 <form className='task-input' onSubmit={handleTaskSubmit}>
                     <input
                         type="text"
@@ -93,17 +93,20 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
                     <button type='submit'>Add Task</button>
                 </form>
 
+                {/* Tasks section */}
                 {currentList.items.length > 0 &&
-                    <ul className="tasks">
-                        {currentList.items.map((task) =>
-                            <li key={task.id}>
-                                {task.title}
-                                <button onClick={handleRemoveTask(task.id)}>
-                                    <IoClose />
-                                </button>
-                            </li>
-                        )}
-                    </ul>
+                    <>
+                        {/* <ul className="tasks">
+                            {currentList.items.map((task) =>
+                                <ItemList
+                                    task={task}
+                                    type='task'
+                                    onClick={() => handleRemoveTask(task.id)}
+                                />
+                            )}
+                        </ul> */}
+                        <ItemList tasks={currentList.items} type='tasks' onTaskClick={handleRemoveTask} />
+                    </>
                 }
             </div>
         </section>
