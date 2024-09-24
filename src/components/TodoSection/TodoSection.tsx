@@ -90,23 +90,12 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
                         placeholder='New Task'
                         value={taskInput}
                         onChange={(e) => setTaskInput(e.target.value)} />
-                    <button type='submit'>Add Task</button>
+                    <button type='submit' >Add Task</button>
                 </form>
 
                 {/* Tasks section */}
                 {currentList.items.length > 0 &&
-                    <>
-                        {/* <ul className="tasks">
-                            {currentList.items.map((task) =>
-                                <ItemList
-                                    task={task}
-                                    type='task'
-                                    onClick={() => handleRemoveTask(task.id)}
-                                />
-                            )}
-                        </ul> */}
-                        <ItemList tasks={currentList.items} type='tasks' onTaskClick={handleRemoveTask} />
-                    </>
+                    <ItemList list={currentList} type='tasks' onTaskClick={handleRemoveTask} />
                 }
             </div>
         </section>

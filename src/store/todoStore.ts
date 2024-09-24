@@ -27,6 +27,8 @@ interface TodoStoreState {
     addTask: (listId: number, taskTitle: string) => void,
     //  - Remove Task
     removeTask: (listId: number, taskId: number) => void,
+    //  - Change completion status
+    toggleTaskStatus: (listId: number, taskId: number) => void,
     //  - Update Task
     //  - Remove All Task (Optional)
 }
@@ -45,6 +47,11 @@ const mockItems: TodoList[] = [
                 id: Date.now() + 2,
                 title: 'Sugar',
                 isCompleted: true
+            },
+            {
+                id: Date.now() + 3,
+                title: 'Noodles',
+                isCompleted: false
             },
         ],
     },
@@ -140,6 +147,33 @@ const useTodoStore = create<TodoStoreState>((set, get) => ({
             return { todoLists: updatedList } // Return al set()
         })
     },
+    //  - Change completion status
+    toggleTaskStatus: (listId, taskId) => {
+        set((state) => {
+            const updatedList = state.todoLists.map((list) => {
+                if (list.id !== listId) return list
+
+                const updatedTasks = list.items.map((task) => {
+                    if (task.id !== taskId) return task
+
+                    // Return de updatedTasks
+                    return {
+                        ...task,
+                        isCompleted: !task.isCompleted,
+                    }
+                })
+
+                // Return de updatedLists
+                return {
+                    ...list,
+                    items: updatedTasks,
+                }
+            })
+
+            // Return del state
+            return { todoLists: updatedList }
+        })
+    }
     //  - Update Task (Dialog?)
     //  - Remove All Task (Optional)
 }))

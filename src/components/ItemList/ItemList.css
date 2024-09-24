@@ -18,74 +18,119 @@
 
 .ItemList.tasks {
     margin: 0;
-    padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
-    &:has(li.completed) {
-        li.completed {
-            /* background-color: var(--success-bg); */
-            background-color: color-mix(in srgb, rgb(200, 255, 200) 60%, transparent 40%);
-            border: var(--success-border);
+    &:has(li.completed) li.completed {
+        /* background-color: var(--success-bg); */
+        background-color: color-mix(in srgb, rgb(162, 255, 162) 60%, transparent 40%);
+        border: 1px solid var(--success-border);
 
+        .item-content {
             span {
                 color: var(--success-text);
                 transform: translateX(0);
                 text-decoration: line-through;
             }
+        }
 
-            svg {
-                &.icon-checked {
-                    transform: translateX(0);
-                }
+        svg {
+            &.icon-checked {
+                transform: translateX(0);
             }
         }
     }
 
     li {
+        border: 1px solid var(--background-color);
+        flex-shrink: 0;
         display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
         border-radius: .5rem;
         box-shadow: 0 4px 12px #0000001a;
-        overflow: hidden;
         backdrop-filter: blur(5px);
         background-color: color-mix(in srgb, transparent 50%, var(--background-color) 50%);
-        cursor: pointer;
-
-        span {
-            word-break: break-word;
-            flex: 1;
-            transform: translateX(-2.8rem);
-            transition: transform .3s ease-out;
-            font-weight: 600;
-        }
+        overflow: hidden;
 
         svg {
             font-size: 1.8rem;
             color: var(--text-color);
+        }
 
-            &.icon-checked {
-                color: var(--success-text);
-                transform: translateX(-3rem);
-                transition: transform .3s ease-out;
+        .item-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+
+            height: 100%;
+            padding: 1rem;
+            cursor: pointer;
+
+            position: relative;
+
+            span {
+                display: flex;
+                align-items: center;
+
+                svg.icon-checked {
+                    color: var(--success-text);
+                    transform: translateX(-3rem);
+                }
+
+                &.task-title {
+                    transform: translateX(-2.8rem);
+                    font-weight: 600;
+                    word-break: break-word;
+                }
             }
 
-            &.icon-delete:hover {
-                color: var(--error-text);
+            &::before {
+                content: '';
+                position: absolute;
+                width: 1px;
+                height: 50%;
+                background-color: var(--text-color);
+                right: 0;
+                opacity: .3;
+                border-radius: .5rem;
             }
+        }
 
-            &.icon-edit:hover {
-                color: var(--accent-color);
-            }
+        .actions {
+            display: flex;
 
-            &.icon-delete,
-            &.icon-edit {
-                cursor: pointer;
+            button {
+                display: flex;
+                align-items: center;
+                border-radius: 0;
+                padding: 0 .75rem;
+                background-color: transparent;
+                cursor: default;
+
+                &:not(:disabled):hover {
+                    background-color: color-mix(in srgb, 80% transparent, 20% white);
+                    cursor: pointer;
+                }
+
+                &:not(:disabled).icon-edit:hover svg {
+                    color: var(--accent-color);
+                }
+                &.icon-delete:hover svg {
+                    color: var(--error-text);
+                }
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .ItemList.tasks {
+        li {
+            .item-content {}
+
+            .actions {}
         }
     }
 }

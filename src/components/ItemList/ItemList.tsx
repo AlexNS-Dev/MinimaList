@@ -1,18 +1,20 @@
-import { TodoList, TodoTask } from '../../store/todoStore'
+import useTodoStore, { TodoList, TodoTask } from '../../store/todoStore'
 import './ItemList.css'
 import React from 'react'
-import { CgCloseR, CgCheckR, CgMoreR } from 'react-icons/cg'
+import { CgCloseR, CgCheckR, CgMoreVerticalR } from 'react-icons/cg'
 
 interface ItemListProps {
-    lists?: TodoList[] | null
-    tasks?: TodoTask[]
+    listCollection?: TodoList[]
+    list?: TodoList | null
     type: 'lists' | 'tasks'
     onListClick?: (list: TodoList) => void
     onTaskClick?: (taskId: number) => void
 }
 
-const ItemList: React.FC<ItemListProps> = ({ lists, tasks, type, /* onListClick, */ onTaskClick }) => {
-    if (type === 'lists' && lists) {
+const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onListClick, */ onTaskClick }) => {
+    const toggleTaskStatus = useTodoStore((state) => state.toggleTaskStatus)
+
+    if (type === 'lists' && listCollection) {
         return (
             <>
                 {/* <ul>
@@ -22,21 +24,36 @@ const ItemList: React.FC<ItemListProps> = ({ lists, tasks, type, /* onListClick,
                 </ul> */}
             </>
         )
-    } else if (type === 'tasks' && tasks) {
+    } else if (type === 'tasks' && list) {
+        const sortedList = [...list.items].sort((a: TodoTask, b: TodoTask) => {
+            return Number(a.isCompleted) - Number(b.isCompleted)
+        })
+
         return (
             <ul className='ItemList tasks'>
-                {tasks.map((task) =>
+                {sortedList.map((task) =>
                     <li
                         key={task.id}
                         className={task.isCompleted ? 'completed' : ''}
-                        onClick={() => {/* TODO Handle check status */ }}
                     >
-                        <CgCheckR className='icon-checked' />
-                        <span>
-                            {task.title}
-                        </span>
-                        <CgMoreR className='icon-edit' />
-                        <CgCloseR className='icon-delete' onClick={() => onTaskClick && onTaskClick(task.id)} />
+                        <div
+                            className='item-content'
+                            onClick={() => toggleTaskStatus(list.id, task.id)}>
+                            <span>
+                                <CgCheckR className='icon-checked' />
+                            </span>
+                            <span className='task-title'>
+                                {task.title}
+                            </span>
+                        </div>
+                        <div className="actions">
+                            <button className='icon-edit' disabled={task.isCompleted}>
+                                <CgMoreVerticalR />
+                            </button>
+                            <button className='icon-delete' onClick={onTaskClick?.bind(null, task.id)}>
+                                <CgCloseR />
+                            </button>
+                        </div>
                     </li>
                 )}
             </ul>
@@ -44,7 +61,9 @@ const ItemList: React.FC<ItemListProps> = ({ lists, tasks, type, /* onListClick,
     }
 
     return (
-        <span className='ItemList no-items'>No items available</span>
+        <ul>
+            <span className='ItemList no-items'>No items available</span>
+        </ul>
     )
 }
 
