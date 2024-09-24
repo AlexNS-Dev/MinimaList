@@ -2,6 +2,7 @@ import useTodoStore, { TodoList, TodoTask } from '../../store/todoStore'
 import './ItemList.css'
 import React from 'react'
 import { CgCloseR, CgCheckR, CgMoreVerticalR } from 'react-icons/cg'
+import { motion } from 'framer-motion';
 
 interface ItemListProps {
     listCollection?: TodoList[]
@@ -32,8 +33,9 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onLi
         return (
             <ul className='ItemList tasks'>
                 {sortedList.map((task) =>
-                    <li
+                    <motion.li
                         key={task.id}
+                        layout
                         className={task.isCompleted ? 'completed' : ''}
                     >
                         <div
@@ -54,7 +56,7 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onLi
                                 <CgCloseR />
                             </button>
                         </div>
-                    </li>
+                    </motion.li>
                 )}
             </ul>
         )
