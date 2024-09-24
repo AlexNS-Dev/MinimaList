@@ -36,6 +36,14 @@
             }
         }
 
+        .actions {
+            button  {
+                &.icon-edit {
+                    display: none;
+                }
+            }
+        }
+
         svg {
             &.icon-checked {
                 transform: translateX(0);
@@ -114,7 +122,7 @@
                     cursor: pointer;
                 }
 
-                &:not(:disabled).icon-edit:hover svg {
+                &.icon-edit:hover svg {
                     color: var(--accent-color);
                 }
                 &.icon-delete:hover svg {
