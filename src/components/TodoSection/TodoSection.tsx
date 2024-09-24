@@ -94,9 +94,8 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
                 </form>
 
                 {/* Tasks section */}
-                {currentList.items.length > 0 &&
-                    <ItemList list={currentList} type='tasks' onTaskClick={handleRemoveTask} />
-                }
+                <ItemList list={currentList} type='tasks' onTaskClick={handleRemoveTask} />
+
             </div>
         </section>
     )

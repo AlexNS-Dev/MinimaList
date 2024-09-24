@@ -15,6 +15,14 @@ interface ItemListProps {
 const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onListClick, */ onTaskClick }) => {
     const toggleTaskStatus = useTodoStore((state) => state.toggleTaskStatus)
 
+    if (list?.items.length === 0 || listCollection?.length === 0) {
+        return (
+            <ul>
+                <span className='ItemList no-items'>No items available</span>
+            </ul>
+        )
+    }
+
     if (type === 'lists' && listCollection) {
         return (
             <>
@@ -25,6 +33,7 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onLi
                 </ul> */}
             </>
         )
+        
     } else if (type === 'tasks' && list) {
         const sortedList = [...list.items].sort((a: TodoTask, b: TodoTask) => {
             return Number(a.isCompleted) - Number(b.isCompleted)
@@ -35,7 +44,7 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onLi
                 {sortedList.map((task) =>
                     <motion.li
                         key={task.id}
-                        layout={true}
+                        layout
                         className={task.isCompleted ? 'completed' : ''}
                     >
                         <div
@@ -62,11 +71,6 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onLi
         )
     }
 
-    return (
-        <ul>
-            <span className='ItemList no-items'>No items available</span>
-        </ul>
-    )
 }
 
 export default ItemList
