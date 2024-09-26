@@ -37,7 +37,7 @@
         }
 
         .actions {
-            button  {
+            button {
                 &.icon-edit {
                     display: none;
                 }
@@ -126,9 +126,65 @@
                 &.icon-edit:hover svg {
                     color: var(--accent-color);
                 }
+
                 &.icon-delete:hover svg {
                     color: var(--error-text);
                 }
+
+                &:focus {
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+.ItemList.no-items {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    user-select: none;
+    color: color-mix(in srgb, var(--text-color) 50%, transparent 50%);
+}
+
+.css-rsks93-MuiPaper-root-MuiDialog-paper {
+    background-color: var(--background-color) !important;
+    border-radius: .5rem !important;
+}
+
+.edit-dialog {
+
+    .title,
+    .content,
+    .actions {
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
+    .content {
+        input {
+            border-radius: .5rem;
+            background-color: var(--button-background);
+            color: var(--text-color);
+            padding: .5rem;
+            border-color: var(--background-color);
+        }
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-around;
+
+        [name='save-task-name'] {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            font-weight: 600;
+
+            &:disabled {
+                cursor: default;
+                background-color: color-mix(in srgb, var(--background-color) 20%, whitesmoke 80%);
+                color: color-mix(in srgb, var(--background-color) 80%, whitesmoke 20%);
             }
         }
     }

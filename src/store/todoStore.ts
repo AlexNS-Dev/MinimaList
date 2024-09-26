@@ -30,6 +30,7 @@ interface TodoStoreState {
     //  - Change completion status
     toggleTaskStatus: (listId: number, taskId: number) => void,
     //  - Update Task
+    updateTaskTitle: (listId: number, taskId: number, newTitle: string) => void,
     //  - Remove All Task (Optional)
 }
 
@@ -173,8 +174,34 @@ const useTodoStore = create<TodoStoreState>((set, get) => ({
             // Return del state
             return { todoLists: updatedList }
         })
-    }
+    },
     //  - Update Task (Dialog?)
+    updateTaskTitle: (listId, taskId, newTitle) => {
+        set((state) => {
+            const updatedList = state.todoLists.map((list) => {
+                if (list.id !== listId) return list
+
+                const updatedTasks = list.items.map((task) => {
+                    if (task.id !== taskId) return task
+
+                    // Return de updatedTasks
+                    return {
+                        ...task,
+                        title: newTitle,
+                    }
+                })
+
+                // Return de updatedLists
+                return {
+                    ...list,
+                    items: updatedTasks,
+                }
+            })
+
+            // Return del state
+            return { todoLists: updatedList }
+        })
+    },
     //  - Remove All Task (Optional)
 }))
 

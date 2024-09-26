@@ -1,8 +1,12 @@
-import useTodoStore, { TodoList } from '../../store/todoStore';
-import { capitalize } from '../../utils/helpers';
+import useTodoStore, { TodoList } from '../../store/todoStore'
+import { capitalize } from '../../utils/helpers'
 import './TodoSection.css'
 import React, { FormEvent, useMemo, useState } from 'react'
-import ItemList from '../ItemList/ItemList';
+import ItemList from '../ItemList/ItemList'
+import { FaTrashAlt } from 'react-icons/fa'
+import CircularProgress from '@mui/material/CircularProgress'
+import Tooltip from '@mui/material/Tooltip'
+import Zoom from '@mui/material/Zoom'
 
 interface TodoSectionProps {
     selectedList: TodoList | null,
@@ -59,28 +63,30 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
     }
 
     if (todoLists.length === 0) return (
-        <section className="TodoSection">
-            <div className="content">
+        <section className='TodoSection'>
+            <div className='content no-list'>
                 <h2>No lists available</h2>
             </div>
         </section>
     )
 
     if (!currentList) return (
-        <section className="TodoSection">
-            <div className="content">
-                <h2>Loading...</h2>
+        <section className='TodoSection'>
+            <div className='content loading'>
+                <CircularProgress className='loader' />
             </div>
         </section>
     )
 
     return (
         <section className='TodoSection'>
-            <div className="content">
+            <div className='content'>
                 {/* Selected list section */}
                 <header>
                     <h2>{capitalize(currentList.title)}</h2>
-                    <button onClick={() => handleRemoveList(currentList.id)}>Delete List</button>
+                    <Tooltip title='Delete List' placement='left' TransitionComponent={Zoom}>
+                        <button onClick={() => handleRemoveList(currentList.id)}><FaTrashAlt /></button>
+                    </Tooltip>
                 </header>
 
                 {/* Input section */}
@@ -94,8 +100,7 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
                 </form>
 
                 {/* Tasks section */}
-                <ItemList list={currentList} type='tasks' onTaskClick={handleRemoveTask} />
-
+                <ItemList list={currentList} type='tasks' onTaskRemoveClick={handleRemoveTask} />
             </div>
         </section>
     )

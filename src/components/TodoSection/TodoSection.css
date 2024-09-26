@@ -32,6 +32,15 @@
 
         button {
             margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: .5rem;
+
+            &:hover {
+                color: var(--error-bg);
+                background-color: var(--error-text);
+            }
         }
     }
 
@@ -46,6 +55,9 @@
             border-radius: .5rem;
             height: 2.5rem;
             padding: 0 .5rem;
+            border-color: var(--background-color);
+            background-color: var(--background-color);
+            color: var(--button-text);
         }
 
         button {
@@ -98,9 +110,31 @@
     z-index: -2;
 }
 
+.TodoSection .content {
+
+    &.no-list,
+    &.loading {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        font-style: italic;
+        user-select: none;
+        color: color-mix(in srgb, var(--text-color) 50%, transparent 50%);
+    }
+
+    &.loading {
+        .loader {
+            color: color-mix(in srgb, var(--text-color) 50%, transparent 50%);
+            width: 3.2rem !important;
+            height: 3.2rem !important;
+        }
+    }
+}
+
 @media only screen and (max-width: 900px) {
     .TodoSection .content {
         margin: 1rem;
+
         ul {
             width: 100%;
         }
