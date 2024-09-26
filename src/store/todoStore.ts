@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type TodoTask = {
     id: number,
@@ -63,7 +64,7 @@ const mockItems: TodoList[] = [
     },
 ]
 
-const useTodoStore = create<TodoStoreState>((set, get) => ({
+const useTodoStore = create<TodoStoreState>()(persist((set, get) => ({
     //  TodoList list
     todoLists: mockItems || [],
 
@@ -203,6 +204,9 @@ const useTodoStore = create<TodoStoreState>((set, get) => ({
         })
     },
     //  - Remove All Task (Optional)
+}),
+{
+    name: 'todoListState'
 }))
 
 export default useTodoStore;
