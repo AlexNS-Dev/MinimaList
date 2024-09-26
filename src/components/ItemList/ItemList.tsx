@@ -147,9 +147,10 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, selectedList, list,
                         >
                             <div
                                 className='item-content'
-                                onClick={() => toggleTaskStatus(list.id, task.id)}>
-                                <span>
-                                    <CgCheckR className='icon-checked' />
+                                onClick={() => toggleTaskStatus(list.id, task.id)}
+                            >
+                                <span className='icon-checked'>
+                                    <CgCheckR />
                                 </span>
                                 <span className='task-title'>
                                     {capitalize(task.title)}

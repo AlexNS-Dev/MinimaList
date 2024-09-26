@@ -34,6 +34,10 @@
                 color: var(--success-text);
                 text-decoration: line-through;
             }
+            & .icon-checked {
+                display: flex;
+                align-items: center;
+            }
         }
 
         .actions {
@@ -44,11 +48,6 @@
             }
         }
 
-        svg {
-            &.icon-checked {
-                display: block;
-            }
-        }
     }
 
     li {
@@ -62,7 +61,7 @@
         overflow: hidden;
 
         svg {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--text-color);
         }
 
@@ -78,21 +77,18 @@
 
             position: relative;
 
-            span {
-                display: flex;
-                align-items: center;
+            .icon-checked {
+                display: none;
 
-                svg.icon-checked {
-                    display: none;
-                    font-size: 1.5rem;
+                svg {
                     color: var(--success-text);
                 }
+            }
 
-                &.task-title {
-                    flex: 1;
-                    font-weight: 600;
-                    word-break: break-word;
-                }
+            .task-title {
+                flex: 1;
+                font-weight: 600;
+                word-break: break-word;
             }
 
             &::before {
@@ -170,6 +166,7 @@
     .actions {
         display: flex;
         justify-content: space-around;
+        padding-bottom: 1rem;
 
         [name='save-task-name'] {
             background-color: var(--accent-color);
