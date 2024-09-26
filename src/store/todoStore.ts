@@ -35,7 +35,7 @@ interface TodoStoreState {
     //  - Remove All Task (Optional)
 }
 
-const mockItems: TodoList[] = [
+/* const mockItems: TodoList[] = [
     {
         id: Date.now() + 0,
         title: 'Hacer la compra',
@@ -62,11 +62,11 @@ const mockItems: TodoList[] = [
         title: 'Tirar la basura',
         items: [],
     },
-]
+] */
 
 const useTodoStore = create<TodoStoreState>()(persist((set, get) => ({
     //  TodoList list
-    todoLists: mockItems || [],
+    todoLists: [], // todoLists: mockItems || [],
 
     //  - Add List
     addList: (listTitle): TodoList | null => {
