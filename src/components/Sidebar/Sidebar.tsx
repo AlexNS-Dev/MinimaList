@@ -1,7 +1,8 @@
 import './Sidebar.css'
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import useTodoStore, { TodoList } from '../../store/todoStore';
-import { capitalize } from '../../utils/helpers';
+import ItemList from '../ItemList/ItemList';
+import Drawer from '@mui/material/Drawer'
 
 interface SidebarProps {
     open: boolean
@@ -14,6 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen, sel
     const items = useTodoStore((state) => state.todoLists)
     const addList = useTodoStore((state) => state.addList)
     const [listInput, setListInput] = useState('')
+    const [isMobile, setIsMobile] = useState(false)
 
     /**
      * Handles the form submission event for adding a new list.
@@ -29,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen, sel
 
         try {
             const newList = addList(listInput)
-            
+
             if (newList) {
                 onListClick(newList)
             }
@@ -42,43 +44,70 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onListClick, setIsMenuOpen, sel
         } catch (e) {
             throw new Error((e as Error).message)
         }
-        
+
     }
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 900)
+        }
+
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
+
     return (
-        <aside className={`Sidebar ${open ? 'open' : ''}`}>
-            <div className='list'>
-                <ul>
-                    {/* Crear componente de List */}
-                    {items.map((item: TodoList) =>
-                        item &&
-                        <li
-                            key={item.id}
-                            className={selectedList?.id === item.id ? 'active' : ''}
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            onClick={() => onListClick(item)}
-                        >
-                            <span>
-                                {capitalize(item.title)}
-                            </span>
-                        </li>
-                    )}
-                    {/* Aqui terminaria el componente List */}
-                </ul>
-            </div>
-            <form className="list-input" onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    id='add-list-input'
-                    name='add-list-input'
-                    value={listInput}
-                    placeholder='New List'
-                    onChange={(event) => setListInput(event.target.value)} />
-                <button type='submit'>
-                    Add List
-                </button>
-            </form>
-        </aside>
+        <>
+            {isMobile ? (
+                <Drawer
+                    open={open}
+                    onClose={() => setIsMenuOpen(!open)}
+                    className='drawer'
+                >
+                    <aside className='Sidebar'>
+                        <div className='list'>
+                            <ItemList listCollection={items} selectedList={selectedList} onListClick={onListClick} type='lists' />
+                        </div>
+                        <form className="list-input" onSubmit={handleSubmit}>
+                            <input
+                                type="text"
+                                id='add-list-input'
+                                name='add-list-input'
+                                value={listInput}
+                                placeholder='New List'
+                                onChange={(event) => setListInput(event.target.value)} />
+                            <button type='submit'>
+                                Add List
+                            </button>
+                        </form>
+                    </aside>
+                </Drawer >
+            ) : (
+                <aside className='Sidebar'>
+                    <div className='list'>
+                        <ItemList listCollection={items} selectedList={selectedList} onListClick={onListClick} type='lists' />
+                    </div>
+                    <form className="list-input" onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            id='add-list-input'
+                            name='add-list-input'
+                            value={listInput}
+                            placeholder='New List'
+                            onChange={(event) => setListInput(event.target.value)} />
+                        <button type='submit'>
+                            Add List
+                        </button>
+                    </form>
+                </aside>
+            )
+            }
+        </>
     )
 }
 

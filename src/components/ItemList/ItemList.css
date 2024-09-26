@@ -32,7 +32,6 @@
         .item-content {
             span {
                 color: var(--success-text);
-                transform: translateX(0);
                 text-decoration: line-through;
             }
         }
@@ -47,7 +46,7 @@
 
         svg {
             &.icon-checked {
-                transform: translateX(0);
+                display: block;
             }
         }
     }
@@ -84,12 +83,13 @@
                 align-items: center;
 
                 svg.icon-checked {
+                    display: none;
+                    font-size: 1.5rem;
                     color: var(--success-text);
-                    transform: translateX(-3rem);
                 }
 
                 &.task-title {
-                    transform: translateX(-2.8rem);
+                    flex: 1;
                     font-weight: 600;
                     word-break: break-word;
                 }
@@ -134,12 +134,6 @@
     }
 }
 
-@media only screen and (max-width: 900px) {
-    .ItemList.tasks {
-        li {
-            .item-content {}
-
-            .actions {}
-        }
-    }
+.ItemList.lists {
+    color: var(--text-color);
 }

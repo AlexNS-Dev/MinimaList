@@ -3,16 +3,20 @@ import './ItemList.css'
 import React from 'react'
 import { CgCloseR, CgCheckR, CgMoreR } from 'react-icons/cg'
 import { motion } from 'framer-motion';
+import { capitalize } from '../../utils/helpers';
 
 interface ItemListProps {
     listCollection?: TodoList[]
+    selectedList?: TodoList | null
     list?: TodoList | null
     type: 'lists' | 'tasks'
     onListClick?: (list: TodoList) => void
     onTaskClick?: (taskId: number) => void
 }
 
-const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onListClick, */ onTaskClick }) => {
+
+
+const ItemList: React.FC<ItemListProps> = ({ listCollection, selectedList, list, type, onListClick, onTaskClick }) => {
     const toggleTaskStatus = useTodoStore((state) => state.toggleTaskStatus)
 
     if (list?.items.length === 0 || listCollection?.length === 0) {
@@ -25,15 +29,23 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onLi
 
     if (type === 'lists' && listCollection) {
         return (
-            <>
-                {/* <ul>
-                    <li key={list.id} className={className}>
-                        {list.title}
+            <ul className='ItemList lists'>
+                {listCollection.map((item: TodoList) =>
+                    item &&
+                    <li
+                        key={item.id}
+                        className={selectedList?.id === item.id ? 'active' : ''}
+                        style={{ display: 'flex', alignItems: 'center' }}
+                        onClick={onListClick?.bind(null, item)}
+                    >
+                        <span>
+                            {capitalize(item.title)}
+                        </span>
                     </li>
-                </ul> */}
-            </>
+                )}
+            </ul>
         )
-        
+
     } else if (type === 'tasks' && list) {
         const sortedList = [...list.items].sort((a: TodoTask, b: TodoTask) => {
             return Number(a.isCompleted) - Number(b.isCompleted)
@@ -54,7 +66,7 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, list, type, /* onLi
                                 <CgCheckR className='icon-checked' />
                             </span>
                             <span className='task-title'>
-                                {task.title}
+                                {capitalize(task.title)}
                             </span>
                         </div>
                         <div className="actions">

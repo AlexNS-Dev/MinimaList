@@ -1,8 +1,6 @@
 .Sidebar {
     /* border-right: 2px solid var(--button-background); */
     height: calc(100dvh - var(--header-height));
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
     display: grid;
     grid-template-rows: 1fr auto;
     z-index: 2;
@@ -53,6 +51,7 @@
         border-color: var(--background-color);
         color: var(--text-color);
     }
+
     button {
         height: 2.4rem;
         width: 100%;
@@ -66,23 +65,12 @@
 
 /* MOBILE */
 @media only screen and (max-width: 900px) {
+    .drawer > div:nth-child(3) {
+        max-width: 400px;
+        width: 70%;
+    }
     .Sidebar {
-        transform: translateX(-100%);
-        position: absolute;
-        height: calc(100dvh - var(--header-height));
-        width: 80%;
-        background-color: color-mix(in srgb, var(--background-color) 60%, transparent 40%);
-        z-index: 10;
-        backdrop-filter: blur(10px);
-
-        &.open {
-            transform: translateX(0);
-        }
-
-        .list {
-            ul {
-                padding: 1rem 2rem;
-            }
-        }
+        height: 100%;
+        background-color: var(--background-color);
     }
 }
