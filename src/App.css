@@ -27,14 +27,6 @@
     grid-template-columns: minmax(300px, 20%) 1fr;
 }
 
-.MuiTooltip-popper .css-1dbpucb-MuiTooltip-tooltip {
-    background-color: color-mix(in srgb, var(--background-color) 50%, transparent 50%);
-    border: 1px solid var(--text-color);
-    backdrop-filter: blur(5px);
-    color: var(--text-color);
-    font-family: inherit;
-}
-
 /* Mobile */
 @media only screen and (max-width: 900px) {
     .App main {

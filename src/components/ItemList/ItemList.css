@@ -148,11 +148,6 @@
     color: color-mix(in srgb, var(--text-color) 50%, transparent 50%);
 }
 
-.css-rsks93-MuiPaper-root-MuiDialog-paper {
-    background-color: var(--background-color) !important;
-    border-radius: .5rem !important;
-}
-
 .edit-dialog {
 
     .title,

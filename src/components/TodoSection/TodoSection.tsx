@@ -5,8 +5,8 @@ import React, { FormEvent, useMemo, useState } from 'react'
 import ItemList from '../ItemList/ItemList'
 import { FaTrashAlt } from 'react-icons/fa'
 import CircularProgress from '@mui/material/CircularProgress'
-import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
+import CustomTooltip from '../CusotmTooltip/CustomTooltip'
 
 interface TodoSectionProps {
     selectedList: TodoList | null,
@@ -84,9 +84,9 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
                 {/* Selected list section */}
                 <header>
                     <h2>{capitalize(currentList.title)}</h2>
-                    <Tooltip title='Delete List' placement='left' TransitionComponent={Zoom}>
+                    <CustomTooltip title='Delete List' placement='left' TransitionComponent={Zoom}>
                         <button onClick={() => handleRemoveList(currentList.id)}><FaTrashAlt /></button>
-                    </Tooltip>
+                    </CustomTooltip>
                 </header>
 
                 {/* Input section */}

@@ -8,8 +8,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
+import CustomTooltip from '../CusotmTooltip/CustomTooltip';
 
 interface TaskDialogProps {
     open: boolean
@@ -48,7 +48,17 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, list, task }) =>
     }
 
     return (
-        <Dialog open={open} onClose={handleClose} className='edit-dialog'>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            className='edit-dialog'
+            sx={{
+                '& .MuiPaper-root': {
+                    borderRadius: '0.5rem',
+                    backgroundColor: 'var(--background-color)'
+                },
+            }}
+        >
             <DialogTitle className='title'>Change Task Name</DialogTitle>
             <form onSubmit={handleSubmit}>
                 <DialogContent className='content'>
@@ -145,7 +155,7 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, selectedList, list,
                                     {capitalize(task.title)}
                                 </span>
                             </div>
-                            <Tooltip title={task.isCompleted ? 'Delete' : 'Edit & Delete'} placement='left' TransitionComponent={Zoom}>
+                            <CustomTooltip title={task.isCompleted ? 'Delete' : 'Edit & Delete'} placement='left' TransitionComponent={Zoom}>
                                 <div className="actions">
                                     <button className='icon-edit' onClick={() => handleOpenDialog(task)}>
                                         <CgMoreR />
@@ -154,7 +164,7 @@ const ItemList: React.FC<ItemListProps> = ({ listCollection, selectedList, list,
                                         <CgCloseR />
                                     </button>
                                 </div>
-                            </Tooltip>
+                            </CustomTooltip>
                         </motion.li>
                     )}
                 </ul>
