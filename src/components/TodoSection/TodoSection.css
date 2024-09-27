@@ -121,14 +121,6 @@
         user-select: none;
         color: color-mix(in srgb, var(--text-color) 50%, transparent 50%);
     }
-
-    &.loading {
-        .loader {
-            color: color-mix(in srgb, var(--text-color) 50%, transparent 50%);
-            width: 3.2rem !important;
-            height: 3.2rem !important;
-        }
-    }
 }
 
 @media only screen and (max-width: 900px) {

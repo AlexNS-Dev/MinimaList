@@ -66,6 +66,7 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
         <section className='TodoSection'>
             <div className='content no-list'>
                 <h2>No lists available</h2>
+                {/* TODO: Add some suggest to create a new list */}
             </div>
         </section>
     )
@@ -73,7 +74,13 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
     if (!currentList) return (
         <section className='TodoSection'>
             <div className='content loading'>
-                <CircularProgress className='loader' />
+                <CircularProgress
+                    sx={{
+                        color: 'color-mix(in srgb, var(--text-color) 50%, transparent 50%)',
+                        width: '3.2rem',
+                        height: '3.2rem'
+                    }}
+                />
             </div>
         </section>
     )
@@ -84,6 +91,7 @@ const TodoSection: React.FC<TodoSectionProps> = ({ selectedList }) => {
                 {/* Selected list section */}
                 <header>
                     <h2>{capitalize(currentList.title)}</h2>
+                    {/* TODO: Edit list name */}
                     <CustomTooltip title='Delete List' placement='left' TransitionComponent={Zoom}>
                         <button onClick={() => handleRemoveList(currentList.id)}><FaTrashAlt /></button>
                     </CustomTooltip>
