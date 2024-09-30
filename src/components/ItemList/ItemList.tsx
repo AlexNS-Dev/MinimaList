@@ -23,12 +23,11 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, list, task }) =>
     const updateTaskTitle = useTodoStore((state) => state.updateTaskTitle)
 
     useEffect(() => {
-        setInputTask(task?.title || '')
+        setInputTask(capitalize(task?.title || '') || '')
     }, [task])
 
     const handleClose = () => {
         onClose()
-        setInputTask(task?.title || '')
     }
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -37,8 +36,9 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, list, task }) =>
         if (!list || !task) return
 
         // Avoid renaming to the same value it had before
-        if (task.title === inputTask) {
+        if (capitalize(task.title) === capitalize(inputTask)) {
             onClose()
+            console.log('titles are the same');
             return
         }
 
@@ -62,7 +62,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, list, task }) =>
             <DialogTitle className='title'>Change Task Name</DialogTitle>
             <form onSubmit={handleSubmit}>
                 <DialogContent className='content'>
-                    <input type="text" value={capitalize(inputTask)} onChange={(e) => setInputTask(e.target.value)} placeholder='New task name' />
+                    <input type="text" value={inputTask} onChange={(e) => setInputTask(e.target.value)} placeholder='New task name' />
                 </DialogContent>
                 <DialogActions className='actions'>
                     <button onClick={handleClose}>Discard</button>
